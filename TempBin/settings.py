@@ -26,11 +26,9 @@ SECRET_KEY = 'django-insecure-f4^(uwv$6l%%d@&1x(dot9rra7r6#pgz@r#0^@zka37se(@=b-
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'temp-bin.atls.pw',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://temp-bin.atls.pw',
 ]
 
 # Application definition
