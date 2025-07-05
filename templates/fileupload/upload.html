@@ -1,0 +1,43 @@
+{% extends "fileupload/base.html" %}
+
+{% block content %}
+    <h1>Upload <strong>File</strong></h1>
+
+    {% if form.errors %}
+        <div class="error-message">
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.file.label_tag }}
+            {{ form.file }}
+            {% if form.file.errors %}
+                <div class="field-error">{{ form.file.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group captcha-group">
+            <label class="captcha-label">{{ form.captcha.label }}</label>
+            {{ form.captcha }}
+            {% if form.captcha.errors %}
+                <div class="captcha-error">
+                    {% for error in form.captcha.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <small class="captcha-help">Enter the characters shown above</small>
+            <a href="?refresh=1" class="captcha-refresh">Refresh CAPTCHA</a>
+        </div>
+
+        <button type="submit">Upload File</button>
+    </form>
+{% endblock %}

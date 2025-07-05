@@ -1,0 +1,10 @@
+{% extends "fileupload/base.html" %}
+
+{% block content %}
+    <h1>Welcome to <strong>Temp Bin</strong></h1>
+    <p>A secure, simple file sharing service. Upload files and share them with a unique ID.</p>
+    <p>Your files are temporarily stored and protected with CAPTCHA verification.</p>
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="{% url 'upload' %}" style="display: inline-block; padding: 1rem 2rem; background-color: var(--primary); color: var(--on-primary); border-radius: 8px; text-decoration: none; font-weight: 500;">Upload a File</a>
+    </div>
+{% endblock %}

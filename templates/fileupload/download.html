@@ -1,0 +1,28 @@
+{% extends "fileupload/base.html" %}
+
+{% block content %}
+    <h1>Download <strong>File</strong></h1>
+    {% if form.errors %}
+        <div class="error">
+            {% for error in form.errors.values %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.file_id.label_tag }}
+            {{ form.file_id }}
+        </div>
+        <div class="form-group">
+            <label class="captcha-label">{{ form.captcha.label }}</label>
+            {{ form.captcha }}
+            {% if form.captcha.help_text %}
+                <small class="captcha-help">{{ form.captcha.help_text }}</small>
+            {% endif %}
+            <a href="?refresh=1" class="captcha-refresh">Refresh CAPTCHA</a>
+        </div>
+        <button type="submit">Download File</button>
+    </form>
+{% endblock %}

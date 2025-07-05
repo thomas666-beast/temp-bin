@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temp Bin</title>
+    <style>
+        :root {
+          /* Enhanced Color Palette */
+          --primary: #8a63ff;
+          --primary-light: #b394ff;
+          --primary-dark: #6a3dff;
+          --secondary: #03dac6;
+          --accent: #ff6b6b;
+          --background: #0f0f15;
+          --surface: #1e1e28;
+          --surface-light: #2a2a38;
+          --text-primary: #ffffff;
+          --text-secondary: #c9c9d6;
+          --error: #ff6e6e;
+          --success: #6eff8e;
+        }
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          background-color: var(--background);
+          color: var(--text-primary);
+          line-height: 1.6;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          background-image:
+            radial-gradient(circle at 25% 25%, rgba(138, 99, 255, 0.08) 0%, transparent 55%),
+            radial-gradient(circle at 75% 75%, rgba(3, 218, 198, 0.05) 0%, transparent 55%);
+        }
+
+        /* Enhanced Container */
+        .container {
+          max-width: 800px;
+          margin: 2rem auto;
+          padding: 2.5rem;
+          background-color: var(--surface);
+          border-radius: 20px;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+          width: 90%;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Typography */
+        h1 {
+          color: var(--text-primary);
+          text-align: center;
+          margin-bottom: 1.5rem;
+          font-weight: 600;
+          font-size: 2.2rem;
+          background: linear-gradient(90deg, var(--primary), var(--secondary));
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          letter-spacing: -0.5px;
+        }
+
+        h1 strong {
+          font-weight: 700;
+        }
+
+        p {
+          margin-bottom: 1.5rem;
+          color: var(--text-secondary);
+          font-size: 1.05rem;
+        }
+
+        /* Navigation */
+        .nav {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          margin-bottom: 3rem;
+          flex-wrap: wrap;
+        }
+
+        .nav a {
+          padding: 0.8rem 1.8rem;
+          background-color: var(--surface-light);
+          border-radius: 50px;
+          color: var(--text-primary);
+          text-decoration: none;
+          font-weight: 500;
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav a:hover {
+          background-color: var(--primary-dark);
+          transform: translateY(-3px);
+          box-shadow: 0 6px 15px rgba(106, 61, 255, 0.3);
+        }
+
+        .nav a:active {
+          transform: translateY(0);
+        }
+
+        /* Forms */
+        form {
+          margin-top: 2rem;
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+        }
+
+        label {
+          font-weight: 500;
+          color: var(--text-secondary);
+          font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+          padding: 1.1rem;
+          background-color: var(--surface-light);
+          color: var(--text-primary);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="file"]:focus {
+          outline: none;
+          border-color: var(--primary);
+          box-shadow: 0 0 0 3px rgba(138, 99, 255, 0.2);
+        }
+
+        /* File Input Customization */
+        .file-input-wrapper {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .file-input-label {
+          display: block;
+          padding: 1.5rem;
+          background-color: var(--surface-light);
+          border: 2px dashed rgba(138, 99, 255, 0.3);
+          border-radius: 12px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .file-input-label:hover {
+          background-color: rgba(138, 99, 255, 0.05);
+          border-color: var(--primary);
+        }
+
+        /* Buttons */
+        button {
+          padding: 1.2rem;
+          background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+          color: white;
+          border: none;
+          border-radius: 12px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          box-shadow: 0 4px 15px rgba(106, 61, 255, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+
+        button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 20px rgba(106, 61, 255, 0.4);
+        }
+
+        button:active {
+          transform: translateY(0);
+        }
+
+        button::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+          );
+          transform: translateX(-100%);
+          transition: transform 0.6s ease;
+        }
+
+        button:hover::after {
+          transform: translateX(100%);
+        }
+
+        /* File ID Display */
+        .file-id {
+          background-color: rgba(138, 99, 255, 0.1);
+          padding: 1.8rem;
+          border-radius: 12px;
+          word-break: break-all;
+          font-family: 'Fira Code', monospace;
+          font-size: 1.2rem;
+          text-align: center;
+          margin: 2.5rem 0;
+          border: 1px dashed var(--primary);
+          color: var(--primary-light);
+          position: relative;
+        }
+
+        .file-id::before {
+          content: 'ID';
+          position: absolute;
+          top: -10px;
+          left: 20px;
+          background: var(--surface);
+          padding: 0 10px;
+          font-size: 0.8rem;
+          color: var(--primary-light);
+        }
+
+        /* Feedback Messages */
+        .error-message {
+          background-color: rgba(255, 110, 110, 0.1);
+          color: var(--error);
+          padding: 1.2rem;
+          border-radius: 12px;
+          margin-bottom: 1.5rem;
+          border-left: 4px solid var(--error);
+          animation: fadeIn 0.4s ease;
+        }
+
+        .success-message {
+          background-color: rgba(110, 255, 142, 0.1);
+          color: var(--success);
+          padding: 1.2rem;
+          border-radius: 12px;
+          margin-bottom: 1.5rem;
+          border-left: 4px solid var(--success);
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CAPTCHA Styling */
+        .captcha-group {
+          background-color: var(--surface-light);
+          padding: 1.5rem;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          margin: 1.5rem 0;
+          transition: border-color 0.3s ease;
+        }
+
+        .captcha-group.error {
+          border-color: var(--error);
+        }
+
+        .captcha-label {
+          font-weight: 500;
+          color: var(--text-secondary);
+          margin-bottom: 1rem;
+          display: block;
+        }
+
+        .captcha-image {
+          margin-bottom: 1rem;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .captcha-input {
+          width: 100%;
+          padding: 1rem;
+          background-color: var(--background);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          color: var(--text-primary);
+          font-size: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        .captcha-input:focus {
+          outline: none;
+          border-color: var(--primary);
+          box-shadow: 0 0 0 2px rgba(138, 99, 255, 0.2);
+        }
+
+        .captcha-refresh {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-top: 1rem;
+          color: var(--primary-light);
+          font-size: 0.9rem;
+          text-decoration: none;
+          transition: color 0.2s ease;
+        }
+
+        .captcha-refresh:hover {
+          color: var(--primary);
+        }
+
+        .captcha-refresh::before {
+          content: '↻';
+          font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+          text-align: center;
+          padding: 2.5rem;
+          margin-top: auto;
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+          opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+          .container {
+            padding: 1.8rem;
+            margin: 1.5rem auto;
+          }
+
+          h1 {
+            font-size: 1.8rem;
+          }
+
+          .nav a {
+            padding: 0.7rem 1.5rem;
+          }
+
+          button {
+            padding: 1rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .container {
+            padding: 1.5rem;
+            width: 95%;
+          }
+
+          .nav {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .nav a {
+            width: 100%;
+            text-align: center;
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'upload' %}">Upload</a>
+            <a href="{% url 'download' %}">Download</a>
+        </div>
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        Temp Bin &copy; {% now "Y" %} | Simple file sharing service
+    </footer>
+</body>
+</html>

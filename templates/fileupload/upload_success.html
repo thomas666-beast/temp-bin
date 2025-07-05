@@ -1,0 +1,13 @@
+{% extends "fileupload/base.html" %}
+
+{% block content %}
+    <h1>Upload <strong>Successful</strong></h1>
+    <div class="success">
+        Your file has been uploaded successfully!
+    </div>
+    <p>Share this unique ID to allow downloads:</p>
+    <div class="file-id">{{ file_id }}</div>
+    <p style="text-align: center;">
+        <a href="{% url 'download' %}" style="color: var(--secondary);">Go to download page</a>
+    </p>
+{% endblock %}
