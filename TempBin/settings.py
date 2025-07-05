@@ -29,6 +29,9 @@ ALLOWED_HOSTS = [
     'temp-bin.atls.pw',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://temp-bin.atls.pw',
+]
 
 # Application definition
 
