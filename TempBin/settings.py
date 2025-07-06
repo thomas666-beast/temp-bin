@@ -135,3 +135,6 @@ CAPTCHA_BACKGROUND_COLOR = '#121212'
 CAPTCHA_FOREGROUND_COLOR = '#bb86fc'
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots')
+
+handler404 = 'FileUpload.views.custom_404'
+handler500 = 'FileUpload.views.custom_500'

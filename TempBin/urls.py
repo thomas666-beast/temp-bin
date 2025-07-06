@@ -19,6 +19,7 @@ from django.urls import path, include
 
 handler404 = 'FileUpload.views.custom_404'
 handler500 = 'FileUpload.views.custom_500'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('FileUpload.urls')),
